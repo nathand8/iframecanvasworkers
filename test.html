@@ -1,0 +1,48 @@
+<head>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script>
+        function reloadFrame() {
+            document.getElementById('fiddleFrame').contentWindow.location.reload();
+        }
+
+        function frameCallback(imageData) {
+            var i = document.createElement("IMG");
+            i.setAttribute("src", imageData);
+            i.setAttribute("width", "100");
+            document.body.appendChild(i);
+            increaseCount();
+            if (c) {
+                reloadFrame();
+            }
+        }
+
+        function increaseCount() {
+            var count = parseInt($("#count")[0].innerHTML);
+            $("#count")[0].innerHTML = count + 1;
+        }
+
+        c = false;
+        $(function() {
+            $("#start").click(function(){ 
+                c = true;
+                reloadFrame();
+            });
+
+            $("#stop").click(function(){ 
+                c = false;
+            });
+        });
+
+    </script>
+</head>
+<body>
+    <button id="start">Start</button>
+    <button id="stop">Stop</button>
+    <!--
+    <button onclick="reloadFrame()">Reload iFrame</button>
+    Delay: <input type="text" id="delay" value="200"/>milliseconds
+    -->
+    <br />Finished Operations: <span id="count">0</span><br /><br /><br />
+    <iframe id='fiddleFrame' src="/fiddle" style="width: 100px; height: 100px;"/></iframe>
+    <br /><br />
+</body>
