@@ -1,0 +1,52 @@
+<head>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script>
+        function start() {
+            $.each(document.getElementsByTagName('IFRAME'), function(idx, iframe) {
+                setTimeout(function() {
+                    iframe.contentWindow.location.reload();
+                }, idx * 1000);
+            });
+        }
+
+        function frameCallback(canvas) {
+            var i = document.createElement("IMG");
+            i.setAttribute("src", canvas.toDataURL('png'));
+            i.setAttribute("width", "100");
+            document.body.appendChild(i);
+            increaseCount();
+        }
+
+        function increaseCount() {
+            var count = parseInt($("#count")[0].innerHTML);
+            $("#count")[0].innerHTML = count + 1;
+        }
+
+        c = false;
+        $(function() {
+            $("#start").click(function(){ 
+                c = true;
+                start();
+            });
+
+            $("#stop").click(function(){ 
+                c = false;
+            });
+        });
+
+    </script>
+</head>
+<body>
+    <button id="start">Start</button>
+    <button id="stop">Stop</button>
+    <!--
+    Delay: <input type="text" id="delay" value="200"/>milliseconds
+    -->
+    <br />Finished Operations: <span id="count">0</span><br /><br /><br />
+    <iframe src="/canvasrefs/fiddle" style="width: 100px; height: 100px;"/></iframe>
+    <!--
+    Just copy the iframe line for multiple workers
+    <iframe src="/canvasrefs/fiddle" style="width: 100px; height: 100px;"/></iframe>
+    -->
+    <br /><br />
+</body>
